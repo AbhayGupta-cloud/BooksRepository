@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,15 @@ public class Book {
 	private String authorName;
 	@Column(name="Happy_cost")
 	private int cost;
+	@ManyToOne
+	@JoinColumn
+	private BookCategory bookCategory;
+	public BookCategory getBookCategory() {
+		return bookCategory;
+	}
+	public void setBookCategory(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
+	}
 	public int getId() {
 		return id;
 	}
@@ -54,5 +65,13 @@ public class Book {
 		return "Book [id=" + id + ", name=" + name + ", authorName=" + authorName + ", cost=" + cost + "]";
 	}
 	public Book() {
+	}
+	public Book(String name, String authorName, int cost,int bookCategory) {
+		this.name = name;
+		this.authorName = authorName;
+		this.cost = cost;
+		this.bookCategory=new BookCategory();
+		this.bookCategory.setId(bookCategory);
+		
 	}
 }
